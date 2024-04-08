@@ -1,6 +1,6 @@
 const products = [
     {
-        _id: 1,
+
         name: 'Mandala Text',
         image: '/images/1.png',
         description: 'A frame with mandala designed background along with "Mandala" as a text on it.',
@@ -12,7 +12,7 @@ const products = [
         numReviews: 4,
     },
     {
-        _id: 2,
+
         name: 'Flowers Sketch',
         image: '/images/2.png',
         description: 'A frame with Flowers sketch on watercolor paper texture with watercolor brushes from Procreate.',
@@ -24,7 +24,7 @@ const products = [
         numReviews: 3,
     },
     {
-        _id: 3,
+
         name: 'Easter Egg',
         image: '/images/3.png',
         description: 'Happy Easter with Furry Egg Illustration.',
@@ -36,7 +36,7 @@ const products = [
         numReviews: 9,
     },
     {
-        _id: 4,
+
         name: 'Smiley',
         image: '/images/4.png',
         description: 'A frame with Smiley Kiss illustration.',
@@ -48,7 +48,7 @@ const products = [
         numReviews: 13,
     },
     {
-        _id: 5,
+
         name: 'Pikachu',
         image: '/images/5.png',
         description: 'A frame with Pikachu illustration.',
@@ -60,7 +60,7 @@ const products = [
         numReviews: 19,
     },
     {
-        _id: 6,
+
         name: 'Orangy Fur',
         image: '/images/6.png',
         description: 'A frame with Oval Shapped Orange furry baby illustration',
@@ -72,7 +72,7 @@ const products = [
         numReviews: 17,
     },
     {
-        _id: 7,
+
         name: 'Butterfly',
         image: '/images/7.png',
         description: 'A frame with Butterfly illustration and text.',
@@ -84,7 +84,7 @@ const products = [
         numReviews: 20,
     },
     {
-        _id: 8,
+
         name: 'Mandala',
         image: '/images/8.png',
         description: 'A frame with mandala design on colorful background.',
@@ -96,4 +96,4 @@ const products = [
         numReviews: 5,
     },
 ]
-export default products
+export default products;
