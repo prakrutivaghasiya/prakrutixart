@@ -3,10 +3,10 @@ import Product from "../models/productModel.js";
 
 // Fetch all Products
 // GET api/products
-const getProducts = async(req, res) => {
+const getProducts = asyncHandler(async(req, res) => {
     const products = await Product.find({});
     res.json(products);
-};
+});
 
 // Fetch Product by ID
 // GET api/product/:id
