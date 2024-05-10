@@ -19,12 +19,14 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import ProfileScreen from './screens/ProfileScreen';
-
-import PrivateRoute from './components/PrivateRoute';
-import AdminRoute from './components/AdminRoute';
 import OrderListScreen from './screens/admin/OrderListScreen';
 import ProductListScreen from './screens/admin/ProductListScreen';
 import ProductEditScreen from './screens/admin/ProductEditScreen';
+import UserListScreen from './screens/admin/UserListScreen';
+import UserEditScreen from './screens/admin/UserEditScreen';
+
+import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<App />}>
@@ -46,6 +48,8 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path='/admin/orderlist' element={<OrderListScreen />} />
       <Route path='/admin/productlist' element={<ProductListScreen />} />
       <Route path='/admin/products/:id/edit' element={<ProductEditScreen />} />
+      <Route path='/admin/userlist' element={<UserListScreen />} />
+      <Route path='/admin/users/:id/edit' element={<UserEditScreen />} />
     </Route>
   </Route>
 ))
