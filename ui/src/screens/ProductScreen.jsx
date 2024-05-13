@@ -9,6 +9,7 @@ import Message from '../components/Message.jsx';
 import { useGetProductDetailsQuery, useCreateReviewMutation } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice.js';
 import {toast} from 'react-toastify';
+import Meta from '../components/Meta.jsx';
 
 const ProductScreen = () => {
 
@@ -47,7 +48,7 @@ const ProductScreen = () => {
   return (
     <>
         <Link className='btn btn-light my-3' to='/'>
-            Back
+            Go Back
         </Link>
         {isLoading ? (
             <Loader />
@@ -57,6 +58,7 @@ const ProductScreen = () => {
             </Message>
         ) : (
             <>
+                <Meta title={product.name} description={product.description} />
                 <Row>
                     <Col md={5} >
                         <Image src={product.image} alt={product.name} fluid />
