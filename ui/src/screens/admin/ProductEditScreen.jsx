@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
@@ -70,13 +70,17 @@ const ProductEditScreen = () => {
             toast.error(result.error);
         } else {
             toast.success('Product Updated');
-            navigate('/admin/productlist');
+            // navigate('/admin/productlist');
+            navigate(-1);
         }
+    }
+
+    const cancelHandler = () => {
+        navigate(-1);
     }
 
   return (
     <>
-        <Link to='/admin/productlist' className='btn btn-light my-3'>Go Back</Link>
         <FormContainer>
             <h1>Edit Product</h1>
             {loadingUpdate && <Loader />}
@@ -152,13 +156,23 @@ const ProductEditScreen = () => {
                             onChange={(e) => setDescription(e.target.value)}
                         ></Form.Control>
                     </Form.Group>
-                    <Button
-                        type='submit'
-                        variant='primary'
-                        className='my-2'
-                    >
-                        Update
-                    </Button>
+                    <div className='my-2'>
+                        <Button
+                            type='submit'
+                            variant='primary'
+                            className='me-2'
+                        >
+                            Update
+                        </Button>
+                        <Button
+                            type='button'
+                            variant='primary'
+                            className='ms-2'
+                            onClick={cancelHandler}
+                        >
+                            Cancel
+                        </Button>
+                    </div>
                 </Form>
             )}
         </FormContainer>

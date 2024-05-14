@@ -1,12 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 const CheckoutSteps = ({step1, step2, step3, step4}) => {
+    const {userInfo} = useSelector((state) => state.auth);
+
   return (
     <Nav className='justify-content-center mb-4'>
         <Nav.Item>
-            {step1 ? (
+            {step1 ? userInfo ? (
+                <LinkContainer to='/cart'>
+                    <Nav.Link>Cart</Nav.Link>
+                </LinkContainer>
+            ) : (
                 <LinkContainer to='/login'>
                     <Nav.Link>Sign In</Nav.Link>
                 </LinkContainer>

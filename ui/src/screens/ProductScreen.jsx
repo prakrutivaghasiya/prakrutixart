@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem, Form } from 'react-bootstrap';
+import { FaEdit } from 'react-icons/fa';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message.jsx';
@@ -47,9 +48,18 @@ const ProductScreen = () => {
 
   return (
     <>
-        <Link className='btn btn-light my-3' to='/'>
+        <div className='my-3'>
+        <Link className='btn btn-light mx-2' to='/'>
             Go Back
         </Link>
+        {userInfo && 
+            userInfo.isAdmin && 
+                <Link className='btn btn-light mx-2' to={`/admin/products/${productId}/edit`}>
+                    <FaEdit /> Edit Product
+                </Link>
+        }
+        </div>
+
         {isLoading ? (
             <Loader />
         ) : error ? (
@@ -61,7 +71,7 @@ const ProductScreen = () => {
                 <Meta title={product.name} description={product.description} />
                 <Row>
                     <Col md={5} >
-                        <Image src={product.image} alt={product.name} fluid />
+                        <Image src={product.image} alt={product.name} rounded fluid />
                     </Col>
                     <Col md={4}>
                         <ListGroup variant='flush'>

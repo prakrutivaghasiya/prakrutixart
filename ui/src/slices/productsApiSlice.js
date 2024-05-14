@@ -18,6 +18,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
             query: (id) => ({
                 url: `${PRODUCTS_URL}/${id}`,
             }),
+            providesTags: ['Product'],
             keepUnusedDataFor: 5,
         }),
         createProduct: builder.mutation({
@@ -33,7 +34,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                 method: 'PUT',
                 body: data,
             }),
-            invalidatesTags: ['Products'],
+            invalidatesTags: ['Products', 'Product'],
         }),
         uploadProductImage: builder.mutation({
             query: (data) => ({

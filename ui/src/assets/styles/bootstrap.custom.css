@@ -4581,10 +4581,17 @@ fieldset:disabled .btn {
   border-radius: var(--bs-card-inner-border-radius);
 }
 
-.card-img,
+
 .card-img-top,
 .card-img-bottom {
   width: 100%;
+}
+
+.card-img{
+  min-height: 230px;
+  height: 15vw;
+  width: 100%;
+  object-fit: cover;
 }
 
 .card-img,
@@ -4601,6 +4608,15 @@ fieldset:disabled .btn {
 
 .card-group > .card {
   margin-bottom: var(--bs-card-group-margin);
+}
+
+@media only screen and (max-width: 768px) {
+  .card-img {
+    min-height: none;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
 }
 @media (min-width: 576px) {
   .card-group {
