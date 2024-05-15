@@ -32,12 +32,12 @@ const Header = () => {
 
   return (
     <header>
-        <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+        <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect >
             <Container>
                 <LinkContainer to='/'>
                     <Navbar.Brand>
-                        <img src={logo} alt="logo"/>
-                        PrakrutiXart
+                        <img src={logo} alt="logo" className='mx-1' height= '50px' width='45px' />
+                        ArtShop
                     </Navbar.Brand>
                 </LinkContainer>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -46,7 +46,7 @@ const Header = () => {
                         <SearchBox />
                         <LinkContainer to="/cart">
                             <Nav.Link>
-                                <FaShoppingCart /> Cart
+                                <FaShoppingCart />{' '}Cart
                                 {
                                     cartItems.length > 0 && (
                                         <Badge pill bg='success' style={{marginLeft: '5px'}}>
