@@ -10,7 +10,8 @@
     "client": "npm start --prefix ui",
     "dev": "concurrently \"npm run server \" \"npm run client \"",
     "data:import": "node backend/seeder.js",
-    "data:destroy": "node backend/seeder.js -d"
+    "data:destroy": "node backend/seeder.js -d",
+    "build": "npm install && npm install --prefix ui && npm run build --prefix ui"
   },
   "author": "Prakruti Vaghasiya",
   "license": "MIT",
