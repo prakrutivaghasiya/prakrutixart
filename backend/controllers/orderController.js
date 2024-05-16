@@ -51,6 +51,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
       res.status(201).json(createdOrder);
     }
   });
+
 // Get logged in user orders
 // POST api/orders/myorders
 const getMyOrders = asyncHandler(async(req, res) => {
@@ -125,6 +126,20 @@ const updateOrderToDelivered = asyncHandler(async(req, res) => {
     }
 });
 
+// Delete order by id
+// DELETE api/orders/:id
+const deleteOrderById = asyncHandler(async(req, res) => {
+    const order = await Order.findById(req.params.id).populate('user', 'name email');
+
+    if(order){
+        await Order.deleteOne({_id: order._id});
+        res.status(200).json('Order Cancelled');
+    } else {
+        res.status(404);
+        throw new Error("Order not found");
+    }
+});
+
 // Get all orders
 // GET api/orders
 const getOrders = asyncHandler(async(req, res) => {
@@ -138,5 +153,6 @@ export {
     updateOrderToPaid,
     updateOrderToDelivered,
     getOrders, 
-    getOrderById
+    getOrderById,
+    deleteOrderById
 };

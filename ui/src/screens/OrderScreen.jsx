@@ -1,18 +1,22 @@
 import React from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useNavigate} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import {Row, Col, ListGroup, Image, Card, Button} from 'react-bootstrap';
+import {FormText, Row, Col, ListGroup, Image, Card, Button} from 'react-bootstrap';
 import {PayPalButtons, usePayPalScriptReducer} from '@paypal/react-paypal-js';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
-import { useGetOrderDetailsQuery, useGetPayPalCliendIdQuery, usePayOrderMutation, useDeliverOrderMutation } from '../slices/ordersApiSlice';
+import { useGetOrderDetailsQuery, useGetPayPalCliendIdQuery, usePayOrderMutation, useDeliverOrderMutation, useDeleteOrderMutation } from '../slices/ordersApiSlice';
 
 const OrderScreen = () => {
   const {id: orderId} = useParams();
 
+  const navigate = useNavigate();
+
   const {data:order, refetch, isLoading, error} = useGetOrderDetailsQuery(orderId);
+
+  const [deleteOrder, {isLoading: loadingDelete}] = useDeleteOrderMutation();
 
   const [payOrder, {isLoading: loadingPay}] = usePayOrderMutation();
 
@@ -57,12 +61,6 @@ const OrderScreen = () => {
     });
   }
 
-  // const onApproveTest = async () => {
-  //   await payOrder({orderId, details: {payer: {}}});
-  //       refetch();
-  //       toast.success('Payment Successful');
-  // }
-
   const onError = (error) => {
     toast.error(error.message);
   }
@@ -79,6 +77,18 @@ const OrderScreen = () => {
     }).then((orderId) => {
       return orderId;
     });
+  }
+
+  const cancelOrderHandler = async () => {
+    if(window.confirm('Are you sure you want to cancel this order? This cannot be undone')) {
+      try {
+          await deleteOrder(orderId);
+          navigate(-1);
+          toast.success('Order Cancelled');
+      } catch (error) {
+          toast.error(error?.data?.message || error.error);
+      }
+    }
   }
 
   const deliverHandler = async() => {
@@ -181,21 +191,36 @@ const OrderScreen = () => {
               </ListGroup.Item>
               {
                 !order.isPaid && (
-                  <ListGroup.Item>
-                    {loadingPay && <Loader />}
-                    {isPending ? <Loader /> : (
-                      <div>
-                        {/* <Button onClick={onApproveTest} style={{marginBottom: '10px'}}>Test Pay Order</Button> */}
-                        <div>
-                          <PayPalButtons
-                            createOrder={createOrder}
-                            onApprove={onApprove}
-                            onError={onError}
-                          ></PayPalButtons>
-                        </div>
-                      </div>
-                    )}
-                  </ListGroup.Item>
+                  <>
+                    <ListGroup.Item>
+                      {loadingPay && <Loader />}
+                      {isPending ? <Loader /> : (
+                          <div>
+                            <PayPalButtons
+                              createOrder={createOrder}
+                              onApprove={onApprove}
+                              onError={onError}
+                            ></PayPalButtons>
+                          </div>
+                      )}
+                    </ListGroup.Item>
+                    {userInfo && order.user && order.user._id === userInfo._id && 
+                      <ListGroup.Item>
+                        <Button
+                          type='button'
+                          className='btn btn-block'
+                          onClick={cancelOrderHandler}
+                        >
+                          Cancel Order
+                        </Button>
+                      </ListGroup.Item>
+                    }
+                </>
+                )
+              }
+              {
+                order.isPaid && !order.isDelivered && (
+                  <FormText muted className='mx-3'>To cancel order please contact <a href='mailto: prakrutixart@gmail.com' style={{textDecoration: 'none'}}>prakrutiXart</a> by email.</FormText>
                 )
               }
               {loadingDeliver && <Loader />}

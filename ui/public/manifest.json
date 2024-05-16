@@ -1,10 +1,10 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Art Shop",
+  "name": "Artshop created to display knowledge of MERN stack",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "artshop.ico",
+      "sizes": "72x64 40x32 32x24 24x16",
       "type": "image/x-icon"
     },
     {

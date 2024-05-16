@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {Table, Form, Button, Row, Col} from 'react-bootstrap';
 import {FaTimes} from 'react-icons/fa';
@@ -94,7 +95,7 @@ const ProfileScreen = () => {
         <Col md={9}>
             <h2>My Orders</h2>
             {isLoading ? (<Loader />) : error ? (<Message variant='danger'>{error?.data?.message || error.error}</Message>) : (
-                <Table striped hover responsive className='table-sm'>
+                <Table bordered hover responsive className='table-sm'>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -106,7 +107,7 @@ const ProfileScreen = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order) => (
+                        {orders.length > 0 ? orders.map((order) => (
                             <tr key={order._id}>
                                 <td>{order._id}</td>
                                 <td>{order.createdAt.substring(0,10)}</td>
@@ -127,11 +128,13 @@ const ProfileScreen = () => {
                                 </td>
                                 <td>
                                     <LinkContainer to={`/orders/${order._id}`}>
-                                        <Button className='btn-sm' variant='light'>Details</Button>
+                                        <Button className='btn-sm mx-2' variant='light'>Details</Button>
                                     </LinkContainer>
                                 </td>
                             </tr>
-                        ))}
+                        )) : (
+                            <p>You have not ordered anything yet. Lets <Link to='/'> go shopping...</Link></p>
+                        )}
                     </tbody>
                 </Table>
             )}

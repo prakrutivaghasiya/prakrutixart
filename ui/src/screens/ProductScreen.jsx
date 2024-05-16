@@ -144,7 +144,7 @@ const ProductScreen = () => {
                                     <strong>{review.name}</strong>
                                     <Rating value={review.rating} />
                                     <p>{review.createdAt.substring(0,10)}</p>
-                                    <p>{review.comment}</p>
+                                    {review.comment && <p>{review.comment}</p> }
                                 </ListGroup.Item>
                             ))}
                             <ListGroup.Item>

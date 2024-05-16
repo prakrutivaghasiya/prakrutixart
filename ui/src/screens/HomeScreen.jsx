@@ -27,12 +27,15 @@ const HomeScreen = () => {
         ) : (<>
             <h1>Latest ArtWorks</h1>
             <Row>
-                {
+                {data.products.length > 0 ? (
                     data.products.map((product) => (
                         <Col key={product._id} xs={12} sm={6} md={8} lg={4} xl={3}>
                             <Product product={product} />
                         </Col>
                     ))
+                ) : (
+                    <p>No results found for "{keyword}"... Try seaching for something else...</p>
+                )
                 }
             </Row>
             <Paginate pages={data.pages} page={data.page} keyword = {keyword ? keyword : ''} />

@@ -8,6 +8,7 @@ import Loader from '../components/Loader';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import {toast} from 'react-toastify';
+import validator from 'validator';
 
 const RegisterScreen = () => {
     const [name, setName] = useState('');
@@ -34,15 +35,24 @@ const RegisterScreen = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
-            toast.error('Passwords do not match');
+
+        if(!validator.isEmail(email)) {
+            toast.error('Enter a valid email');
         } else {
-            try {
-                const res = await register({name, email, password}).unwrap();
-                dispatch(setCredentials({...res}));
-                navigate(redirect);
-            } catch (error) {
-                toast.error(error?.data?.message || error?.error);
+            if(!validator.isStrongPassword(password)) {
+                toast.error('Password is not strong enough');
+            } else {
+                if (password !== confirmPassword) {
+                    toast.error('Passwords do not match');
+                } else {
+                    try {
+                        const res = await register({name, email, password}).unwrap();
+                        dispatch(setCredentials({...res}));
+                        navigate(redirect);
+                    } catch (error) {
+                        toast.error(error?.data?.message || error?.error);
+                    }
+                }
             }
         }
     };
@@ -74,6 +84,9 @@ const RegisterScreen = () => {
                     onChange={(e) => setEmail(e.target.value)}
                 >
                 </Form.Control>
+                <Form.Text className="text-muted">
+                    We'll never share your email with anyone else.
+                </Form.Text>
             </Form.Group>
             <Form.Group controlId='password' className='my-3'>
                 <Form.Label>
@@ -98,6 +111,9 @@ const RegisterScreen = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 >
                 </Form.Control>
+                <Form.Text className="text-muted">
+                        Password needs to be atleast 8 characters long, have atleast 1 number, uppercase letter, lowercase letter and special characters (i.e. !, @, #, $, %, ^, &, *).
+                </Form.Text>
             </Form.Group>
             <Button type='submit' variant='primary' className='mt-2' disabled={isLoading}>
                 Sign Up

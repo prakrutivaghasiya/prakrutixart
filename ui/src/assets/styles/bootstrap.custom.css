@@ -2182,11 +2182,11 @@ progress {
   padding: 0;
 }
 .form-control::-moz-placeholder {
-  color: var(--bs-secondary-color);
+  color: #8e8d8f;
   opacity: 1;
 }
 .form-control::placeholder {
-  color: var(--bs-secondary-color);
+  color: #8e8d8f;
   opacity: 1;
 }
 .form-control:disabled {
@@ -8792,7 +8792,7 @@ fieldset:disabled .btn {
 
 .text-muted {
   --bs-text-opacity: 1;
-  color: var(--bs-secondary-color) !important;
+  color:#8e8d8f !important;
 }
 
 .text-black-50 {
