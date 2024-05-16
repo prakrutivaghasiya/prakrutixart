@@ -5,6 +5,7 @@ import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import { FaTrash } from 'react-icons/fa';
 import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
+import Meta from '../components/Meta';
 
 const CartScreen = () => {
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ const CartScreen = () => {
 
   return (
     <>
+        <Meta title="Cart - ArtShop" />
         <Link to='/' className='btn btn-light my-2'>Continue Shopping</Link>
         <Row>
             <Col md={8}>

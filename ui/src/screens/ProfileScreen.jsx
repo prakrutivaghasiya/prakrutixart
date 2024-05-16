@@ -11,6 +11,8 @@ import Loader from '../components/Loader';
 import { useProfileMutation } from '../slices/usersApiSlice';
 import {useGetMyOrdersQuery} from '../slices/ordersApiSlice';
 import {setCredentials} from '../slices/authSlice';
+import validator from "validator";
+import Meta from '../components/Meta';
 
 const ProfileScreen = () => {
     const [name, setName] = useState("");
@@ -34,20 +36,33 @@ const ProfileScreen = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        if(password !== confirmPassword){
-            toast.error('Password do not match');
+
+        if(!validator.isEmail(email)) {
+            toast.error('Enter a valid email');
         } else {
-            try {
-                const res = await updateProfile({_id: userInfo._id, name, email, password}).unwrap();
-                dispatch(setCredentials(res));
-                toast.success('Profile Updated');
-            } catch (error) {
-                toast.error(error?.data?.message || error.error);
+            if(!validator.isStrongPassword(password)) {
+                toast.error('Password does not meet requirements');
+            } else {
+                if(password !== confirmPassword){
+                    toast.error('Passwords do not match');
+                } else {
+                    try {
+                        const res = await updateProfile({_id: userInfo._id, name, email, password}).unwrap();
+                        dispatch(setCredentials(res));
+                        setPassword('');
+                        setConfirmPassword('');
+                        toast.success('Profile Updated');
+                    } catch (error) {
+                        toast.error(error?.data?.message || error.error);
+                    }
+                }
             }
-        }
+        }   
     }
 
   return (
+    <>
+    <Meta title={`${userInfo?.name} | ArtShop`} description="Update your profile information or orders here." />
     <Row>
         <Col md={3}>
             <h2>User Profile</h2>
@@ -78,6 +93,7 @@ const ProfileScreen = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     ></Form.Control>
+                    <Form.Text muted>Password needs to be atleast 8 characters long, have atleast 1 number, uppercase letter, lowercase letter and special characters (i.e. !, @, #, $, %, ^, &, *). </Form.Text>
                 </Form.Group>
                 <Form.Group controlId='confirmPassword' className='my-2'>
                     <Form.Label>Confirm Password</Form.Label>
@@ -87,6 +103,7 @@ const ProfileScreen = () => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     ></Form.Control>
+                    <Form.Text muted>Passwords must match</Form.Text>
                 </Form.Group>
                 <Button type='submit' variant='primary' className='my-2'>Update</Button>
                 {loadingUpdateProfile && <Loader />}
@@ -140,7 +157,8 @@ const ProfileScreen = () => {
             )}
         </Col>
     </Row>
+    </>
   )
 }
 
-export default ProfileScreen
+export default ProfileScreen;

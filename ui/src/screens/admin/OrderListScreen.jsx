@@ -5,12 +5,14 @@ import { FaTimes } from 'react-icons/fa';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import {useGetOrdersQuery} from '../../slices/ordersApiSlice';
+import Meta from '../../components/Meta';
 
 const OrderListScreen = () => {
   const {data: orders, isLoading, error} = useGetOrdersQuery();
 
   return (
     <>
+    <Meta title="All Orders - ArtShop | Admin" />
     <h1>Orders</h1>
     {isLoading ? <Loader /> : error ? <Message variant='danger'>{error?.data?.message || error.error}</Message> : (
       <Table bordered hover responsive className='table-sm'>

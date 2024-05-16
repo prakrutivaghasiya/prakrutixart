@@ -33,6 +33,10 @@ const ProductScreen = () => {
         navigate('/cart');
     }
 
+    const backHandler = () => {
+        navigate(-1);
+    }
+
     const submitHandler = async(e) => {
         e.preventDefault();
         try {
@@ -48,10 +52,15 @@ const ProductScreen = () => {
 
   return (
     <>
+        <Meta title={product?.name} description={product?.description} />
         <div className='my-3'>
-        <Link className='btn btn-light mx-2' to='/'>
+        <Button 
+            type='button'
+            className='btn btn-light mx-2'
+            onClick={backHandler}
+        >
             Go Back
-        </Link>
+        </Button>
         {userInfo && 
             userInfo.isAdmin && 
                 <Link className='btn btn-light mx-2' to={`/admin/products/${productId}/edit`}>
@@ -136,7 +145,7 @@ const ProductScreen = () => {
                 </Row>
                 <Row className='review'>
                     <Col md={6}>
-                        <h2>Reviews</h2>
+                        <h5>Reviews</h5>
                         {product.reviews.length === 0 && <Message>No Reviews</Message>}
                         <ListGroup variant='flush'>
                             {product.reviews.map((review) => (
@@ -148,7 +157,7 @@ const ProductScreen = () => {
                                 </ListGroup.Item>
                             ))}
                             <ListGroup.Item>
-                                <h2>Write a Customer Review</h2>
+                                <h6>Write a Customer Review</h6>
                                 {loadingReview && <Loader />}
                                 {
                                     userInfo ? (

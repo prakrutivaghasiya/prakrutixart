@@ -7,6 +7,7 @@ import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 import { useUpdateProductMutation, useGetProductDetailsQuery, useUploadProductImageMutation } from '../../slices/productsApiSlice';
 import FormContainer from '../../components/FormContainer';
+import Meta from '../../components/Meta';
 
 const ProductEditScreen = () => {
     const {id: productId} = useParams();
@@ -81,6 +82,7 @@ const ProductEditScreen = () => {
 
   return (
     <>
+        <Meta title="Edit Product - ArtShop | Admin" />
         <FormContainer>
             <h1>Edit Product</h1>
             {loadingUpdate && <Loader />}

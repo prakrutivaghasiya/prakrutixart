@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import Paginate from '../components/Paginate';
 import ProductCarousel from '../components/ProductCarousel';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
+import Meta from '../components/Meta';
 
 const HomeScreen = () => {
     const {pageNumber, keyword} = useParams();
@@ -14,6 +15,7 @@ const HomeScreen = () => {
 
   return (
     <>
+        <Meta />
         {!keyword 
             ? <ProductCarousel /> 
             : <Link to='/' className='btn btn-light my-2'>Go Back</Link>

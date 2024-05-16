@@ -6,25 +6,31 @@ import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import {useGetUsersQuery, useDeleteUserMutation} from '../../slices/usersApiSlice';
 import { toast } from 'react-toastify';
+import Meta from '../../components/Meta';
 
 const UserListScreen = () => {
   const {data: users, refetch, isLoading, error} = useGetUsersQuery();
   const [deleteUser, {isLoading: loadingDelete}] = useDeleteUserMutation();
 
-  const deleteHandler = async (id) => {
+  const deleteHandler = async (user) => {
     if(window.confirm('Are you sure you want to delete this user? This cannot be undone.')){
+      if (user.isAdmin) {
+        toast.error('Cannot delete Admin User');
+      } else {
         try {
-            await deleteUser(id);
+            await deleteUser(user._id);
             refetch();
-            toast.success('User successfully deleted.');
+            toast.success('User successfully deleted');
         } catch (error) {
             toast.error(error?.data?.message || error.error);
         }
+      }
     }
   }
 
   return (
     <>
+    <Meta title="All Users - ArtShop | Admin" />
     <h1>Users</h1>
     {loadingDelete && <Loader />}
     {isLoading ? <Loader /> : error ? <Message variant='danger'>{error?.data?.message || error.error}</Message> : (
@@ -59,7 +65,7 @@ const UserListScreen = () => {
                 <Button 
                     variant='light' 
                     className='btn-sm mx-2'
-                    onClick={() => deleteHandler(user._id)}
+                    onClick={() => deleteHandler(user)}
                 >
                     <FaRegTrashAlt style={{color: 'red'}} />
                   </Button>

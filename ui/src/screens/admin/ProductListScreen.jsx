@@ -8,6 +8,7 @@ import Loader from '../../components/Loader';
 import Paginate from '../../components/Paginate';
 import {useGetProductsQuery, useCreateProductMutation, useDeleteProductMutation} from '../../slices/productsApiSlice';
 import { toast } from 'react-toastify';
+import Meta from '../../components/Meta';
 
 const ProductListScreen = () => {
     const pageNumber = useParams();
@@ -20,6 +21,7 @@ const ProductListScreen = () => {
             try {
                 await deleteProduct(id);
                 refetch();
+                toast.success('Product deleted successfully');
             } catch (error) {
                 toast.error(error?.data?.message || error.error);
             }
@@ -40,6 +42,7 @@ const ProductListScreen = () => {
 
   return (
     <>
+    <Meta title="All Products - ArtShop | Admin" />
     <Row className='align-itmes-center'>
         <Col>
             <h1>Products</h1>

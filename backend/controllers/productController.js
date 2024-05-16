@@ -24,7 +24,7 @@ const getProductById = asyncHandler(async(req, res) => {
         res.json(product);
     } else {
         res.status(404);
-        throw new Error('Resource not found.')
+        throw new Error('Product not found.')
     }
 });
 
@@ -82,7 +82,7 @@ const deleteProduct = asyncHandler(async(req, res) => {
         res.status(200).json({message: 'Product deleted'});
     } else {
         res.status(404);
-        throw new Error('Resource not found.')
+        throw new Error('Product not found.')
     }
 });
 
@@ -119,7 +119,7 @@ const createProductReview = asyncHandler(async(req, res) => {
 
     } else {
         res.status(404);
-        throw new Error('Resource not found.')
+        throw new Error('Product not found.')
     }
 });
 

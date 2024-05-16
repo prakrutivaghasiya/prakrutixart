@@ -9,6 +9,7 @@ import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import {toast} from 'react-toastify';
 import validator from 'validator';
+import Meta from '../components/Meta.jsx';
 
 const RegisterScreen = () => {
     const [name, setName] = useState('');
@@ -40,7 +41,7 @@ const RegisterScreen = () => {
             toast.error('Enter a valid email');
         } else {
             if(!validator.isStrongPassword(password)) {
-                toast.error('Password is not strong enough');
+                toast.error('Password does not meet requirements.');
             } else {
                 if (password !== confirmPassword) {
                     toast.error('Passwords do not match');
@@ -58,8 +59,11 @@ const RegisterScreen = () => {
     };
 
   return (
+    <>
+    <Meta title="Register - ArtShop" />
     <FormContainer>
-        <h1>Sign Up</h1>
+        <div className='overlay'>
+        <h1 style={{textAlign: 'center'}}>Sign Up</h1>
         <Form onSubmit={submitHandler}>
             <Form.Group controlId='name' className='my-3'>
                 <Form.Label>
@@ -99,6 +103,9 @@ const RegisterScreen = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 >
                 </Form.Control>
+                <Form.Text muted>
+                        Password needs to be atleast 8 characters long, have atleast 1 number, uppercase letter, lowercase letter and special characters (i.e. !, @, #, $, %, ^, &, *).
+                </Form.Text>
             </Form.Group>
             <Form.Group controlId='confirmPassword' className='my-3'>
                 <Form.Label>
@@ -111,9 +118,7 @@ const RegisterScreen = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 >
                 </Form.Control>
-                <Form.Text className="text-muted">
-                        Password needs to be atleast 8 characters long, have atleast 1 number, uppercase letter, lowercase letter and special characters (i.e. !, @, #, $, %, ^, &, *).
-                </Form.Text>
+                <Form.Text muted>Passwords must match</Form.Text>
             </Form.Group>
             <Button type='submit' variant='primary' className='mt-2' disabled={isLoading}>
                 Sign Up
@@ -126,7 +131,9 @@ const RegisterScreen = () => {
                 Already have an account? <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Login</Link>
             </Col>
         </Row>
+        </div>
     </FormContainer>
+    </>
   )
 }
 

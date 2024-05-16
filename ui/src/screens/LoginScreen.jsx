@@ -8,6 +8,7 @@ import Loader from '../components/Loader';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import {toast} from 'react-toastify';
+import Meta from '../components/Meta';
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -42,8 +43,12 @@ const LoginScreen = () => {
     };
 
   return (
+    <>
+    <Meta title="Login - ArtShop" />
     <FormContainer>
-        <h1>Sign In</h1>
+        <div className='overlay'>
+        <h1 style={{textAlign: 'center'}}>Welcome Back</h1>
+        <h6 style={{textAlign: 'center'}}>Sign in to your account!</h6>
         <Form onSubmit={submitHandler}>
             <Form.Group controlId='email' className='my-3'>
                 <Form.Label>
@@ -80,7 +85,9 @@ const LoginScreen = () => {
                 New Customer? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
             </Col>
         </Row>
+        </div>
     </FormContainer>
+    </>
   )
 }
 
