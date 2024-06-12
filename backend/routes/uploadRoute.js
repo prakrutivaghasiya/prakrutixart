@@ -35,7 +35,6 @@ function fileFilter(req, file, cb) {
       if (error) {
         res.status(400).send({ message: error.message });
       } else {
-        console.log(req.file);
         res.status(200).send({
             message: 'Image uploaded successfully',
             image: `/images/${req.file.filename}`,
