@@ -121,6 +121,17 @@ const ProductEditScreen = () => {
                             onChange={uploadFileHandler}
                         ></Form.Control>
                         {loadingUpload && <Loader />}
+                        <img 
+                            src={image} 
+                            alt='image' 
+                            style={{
+                                height: '150px',
+                                width: '150px',
+                                objectFit: 'cover',
+                                border: '0.5px solid #c9c9c9',
+                                borderRadius: '10px'
+                            }}
+                        />
                     </Form.Group>
                     <Form.Group controlId='brand' className='my-2'>
                         <Form.Label>brand</Form.Label>

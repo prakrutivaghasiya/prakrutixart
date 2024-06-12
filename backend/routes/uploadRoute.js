@@ -6,7 +6,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, 'ui/public/images/');
     },
     filename(req, file, cb) {
         cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
@@ -35,9 +35,10 @@ function fileFilter(req, file, cb) {
       if (error) {
         res.status(400).send({ message: error.message });
       } else {
+        console.log(req.file);
         res.status(200).send({
             message: 'Image uploaded successfully',
-            image: `/${req.file.path}`,
+            image: `/images/${req.file.filename}`,
           });
       }
     });
